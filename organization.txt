@@ -1,0 +1,43 @@
+├── config
+│   ├── config.json
+│   ├── config.template.json
+│   └── video_format.json
+├── data
+│   ├── quiz
+│   │   ├── quiz_1_20.json
+│   │   ├── quiz_26_40.json
+│   │   └── quiz_41_50.json
+│   └── wyr
+│       ├── wyr_1_15.json
+│       ├── wyr_16_25.json
+│       ├── wyr_26_41.json
+│       └── wyr_42_50.json
+├── logs
+│   └── errors.log
+├── organization.txt
+├── README.md
+├── requirements.txt
+├── src
+│   ├── main.py
+│   ├── utils
+│   │   ├── audio_utils.py
+│   │   ├── exceptions.py
+│   │   ├── image_utils.py
+│   │   ├── __init__.py
+│   │   ├── json_exceptions.py
+│   │   ├── logger.py
+│   │   └── utils.py
+│   ├── video_formats
+│   │   ├── __init__.py
+│   │   ├── quiz_format.py
+│   │   ├── video_format.py
+│   │   └── wyr_format.py
+│   └── video_processing
+│       ├── audio_processor2.py
+│       ├── audio_processor.py
+│       ├── image_processor.py
+│       ├── __init__.py
+│       ├── text_to_speech.py
+│       └── video_processor.py
+└── tests
+    └── test_example.py

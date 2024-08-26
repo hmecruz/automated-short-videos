@@ -1,0 +1,18 @@
+{
+    "voices": {
+        "en": "en-US-GuyNeural",
+        "pt": "pt-BR-FranciscaNeural"
+    },
+    "video": {
+        "default_format": "mp4",
+        "supported_formats": ["mp4", "avi", "mov"]
+    },
+    "audio": {
+        "default_volume": 0.5,
+        "supported_sample_rates": [44100, 48000]
+    },
+    "logging": {
+        "log_level": "INFO",
+        "log_file": "logs/automated_videos.log"
+    }
+}
