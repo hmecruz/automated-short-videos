@@ -1,0 +1,23 @@
+[
+    {
+        "name": "video_name",
+        "video_format": "quiz",
+        "content": {
+            "en": {
+                "intro": "Intro content",
+                "content": [
+                    "First sentence of content",
+                    "Second setence of content"
+                ],
+                "outro": "Outro content"
+            },
+            "<voice_code>": {
+                "intro": "Conteúdo da intro",
+                "content": [
+                    "Primeira frase de conteúdo"
+                ],
+                "outro": ""
+            }
+        }
+    }
+]

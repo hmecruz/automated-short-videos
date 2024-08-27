@@ -1,21 +1,17 @@
+.
 ├── config
 │   ├── config.json
 │   ├── config.template.json
 │   └── video_format.json
 ├── data
 │   ├── quiz
-│   │   ├── quiz_1_20.json
-│   │   ├── quiz_26_40.json
-│   │   └── quiz_41_50.json
+│   │   quiz_data.json
 │   └── wyr
-│       ├── wyr_1_15.json
-│       ├── wyr_16_25.json
-│       ├── wyr_26_41.json
-│       └── wyr_42_50.json
+│       
 ├── logs
 │   └── errors.log
 ├── organization.txt
-├── README.md
+├── __pycache__
 ├── requirements.txt
 ├── src
 │   ├── main.py
@@ -33,7 +29,6 @@
 │   │   ├── video_format.py
 │   │   └── wyr_format.py
 │   └── video_processing
-│       ├── audio_processor2.py
 │       ├── audio_processor.py
 │       ├── image_processor.py
 │       ├── __init__.py
