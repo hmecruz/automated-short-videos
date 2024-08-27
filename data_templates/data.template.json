@@ -1,7 +1,7 @@
 [
     {
         "name": "video_name",
-        "video_format": "quiz",
+        "format": "quiz",
         "content": {
             "en": {
                 "intro": "Intro content",

@@ -1,15 +1,8 @@
 import os
 import json
-from utils.json_exceptions import JSONConfigurationError
+from utils.utils import load_json
+from utils.json_exceptions import JSONConfigurationError, JSONFileError
 
-def load_config(config_path):
-    if not os.path.exists(config_path):
-        raise FileNotFoundError(f"Configuration file not found at {config_path}")
-    
-    with open(config_path, "r") as file:
-        config = json.load(file)
-    
-    return config
 
 def get_export_dirs(config):
     export_dirs = config.get("export_dirs", {})
@@ -49,3 +42,21 @@ def get_export_dirs(config):
             os.makedirs(dir_path, exist_ok=True)
     
     return export_dirs
+
+
+def load_data_files(data_file_paths):    
+    if isinstance(data_file_paths, str):
+            data_file_paths = [data_file_paths]
+    elif not isinstance(data_file_paths, list):
+        raise JSONFileError("Invalid format for 'data_file_paths'. It should be a list of paths or a single path.")
+
+    if not all(isinstance(path, str) for path in data_file_paths):
+        raise JSONFileError("All elements in 'data_file_paths' must be strings representing file paths.")
+
+    data = []
+    
+    for path in data_file_paths:
+        file = load_json(path)
+        data.extend(json.load(file))
+    
+    return data
