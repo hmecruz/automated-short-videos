@@ -7,30 +7,36 @@ from utils.exceptions import AudioProcessingError, DurationExceededError
 from utils.json_exceptions import JSONConfigurationError
 from utils.utils import cleanup_memory_files
 from video_processing.text_to_speech import TextToSpeech
+from video_formats.video_format import VideoFormat
 
 
 class Audio:
-    def __init__(self, name, data, config, export_dirs):
-        self.name = name
+    def __init__(self, name: str, data, language_code: str, config, export_dirs: list):
         self.text_to_speech = TextToSpeech()
+        self.name = name
         self.data = data
+        self.language_code = language_code
+        self.config = config
+        self.export_dirs = export_dirs
         self._get_config(config)
+        
 
     def _get_config(self, config):
         try:
+            VideoFormat.validate_fields(config)
             self.intro_duration = config["intro_duration"]
             self.outro_duration = config["outro_duration"]
             self.video_segment_duration = config["video_segment_duration"]
             self.intro_initial_silence = config["intro_initial_silence"]
             self.outro_initial_silence = config["outro_initial_silence"]
             self.video_segment_initial_silence = config["video_segment_initial_silence"]
-        except KeyError as e:
+        except (KeyError, JSONConfigurationError) as e:
             raise JSONConfigurationError(f"Missing required config key: {str(e)}")
 
-    async def process_audio(self, output_dir, language_code, export_dirs: list):
+    async def process_audio(self):
 
         # Step 1: Generate temporary audio files from text data
-        audio_segments_map = await self._generate_audio_segments(language_code)
+        audio_segments_map = await self._generate_audio_segments(self.language_code)
 
         # Step 2: Process each audio segment (add silences, ensure duration)
         processed_segments = self._process_audio_segments(audio_segments_map)
@@ -39,7 +45,7 @@ class Audio:
         final_audio = concatenate_audio(processed_segments)
 
         # Step 4: Export the final audio file
-        export_audio(final_audio, self.name, export_dirs, language_code)
+        export_audio(final_audio, self.name, self.language_code, self.export_dirs)
 
         # Validation
         self._validate_audio(final_audio, processed_segments)

@@ -33,7 +33,7 @@ def concatenate_audio(audio_segments):
     return combined_audio
 
 
-def export_audio(audio, audio_name, export_dirs, language_code):
+def export_audio(audio, audio_name: str, language_code: str, export_dirs: list):
     for dir_path in export_dirs:
         output_path = os.path.join(dir_path, f"{audio_name}_final_{language_code}.mp3")
         audio.export(output_path, format="mp3")

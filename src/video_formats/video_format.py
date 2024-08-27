@@ -45,7 +45,7 @@ class VideoFormat:
             "video_segment_initial_silence", None
         )
 
-        self._validate_fields()
+        self.validate_fields()
 
     def get_format_config(self, config):
         """This method should be overridden in subclasses."""
@@ -53,9 +53,9 @@ class VideoFormat:
             "Subclasses should implement this method to return format-specific configuration."
         )
 
-    def _validate_fields(self):
+    def validate_fields(self, config=None):
         """Helper method to validate the fields and raise a single exception for all errors."""
-        fields = self.get_config()
+        fields = self.get_config() if not config else config
         errors = []  # Collect all errors
 
         for field_name, value in fields.items():
