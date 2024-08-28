@@ -2,26 +2,16 @@ import json
 import os
 
 from utils.json_exceptions import JSONConfigurationError
+from utils.utils import load_json
 
 
 class VideoFormat:
-    def __init__(self, config_path="../../config/video_format.json"):
-        self.config_path = config_path
+    def __init__(self):
+        self.config_path = "../config/video_format.json"
         self.load_config()
 
     def load_config(self):
-        if not os.path.exists(self.config_path):
-            raise FileNotFoundError(
-                f"Configuration file not found at {self.config_path}"
-            )
-
-        try:
-            with open(self.config_path, "r") as file:
-                config = json.load(file)
-        except json.JSONDecodeError as e:
-            raise JSONConfigurationError(
-                f"Error parsing the configuration file: {str(e)}"
-            )
+        config = load_json(self.config_path)
 
         video_format_config = self.get_format_config(config)
         if not video_format_config:
@@ -45,7 +35,7 @@ class VideoFormat:
             "video_segment_initial_silence", None
         )
 
-        self.validate_fields()
+        VideoFormat.validate_fields(self.get_config())
 
     def get_format_config(self, config):
         """This method should be overridden in subclasses."""
@@ -53,11 +43,13 @@ class VideoFormat:
             "Subclasses should implement this method to return format-specific configuration."
         )
 
-    def validate_fields(self, config=None):
+    def validate_fields(fields):
         """Helper method to validate the fields and raise a single exception for all errors."""
-        fields = self.get_config() if not config else config
+
         errors = []  # Collect all errors
 
+        # Add a required keys dict
+        
         for field_name, value in fields.items():
             if value is None:
                 errors.append(f"Missing required field: {field_name}")

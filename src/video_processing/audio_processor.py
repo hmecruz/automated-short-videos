@@ -11,27 +11,27 @@ from video_formats.video_format import VideoFormat
 
 
 class Audio:
-    def __init__(self, name: str, data, language_code: str, config, export_dirs: list):
-        self.text_to_speech = TextToSpeech()
+    def __init__(self, name: str, data, language_code: str, video_config, export_dirs: list):
+        self.text_to_speech = TextToSpeech("../config/config.json")
         self.name = name
         self.data = data
         self.language_code = language_code
-        self.config = config
+        self.video_config = video_config
         self.export_dirs = export_dirs
-        self._get_config(config)
+        self._get_video_config(video_config)
         
 
-    def _get_config(self, config):
+    def _get_video_config(self, video_config):
         try:
-            VideoFormat.validate_fields(config)
-            self.intro_duration = config["intro_duration"]
-            self.outro_duration = config["outro_duration"]
-            self.video_segment_duration = config["video_segment_duration"]
-            self.intro_initial_silence = config["intro_initial_silence"]
-            self.outro_initial_silence = config["outro_initial_silence"]
-            self.video_segment_initial_silence = config["video_segment_initial_silence"]
+            VideoFormat.validate_fields(video_config)
+            self.intro_duration = video_config["intro_duration"]
+            self.outro_duration = video_config["outro_duration"]
+            self.video_segment_duration = video_config["video_segment_duration"]
+            self.intro_initial_silence = video_config["intro_initial_silence"]
+            self.outro_initial_silence = video_config["outro_initial_silence"]
+            self.video_segment_initial_silence = video_config["video_segment_initial_silence"]
         except (KeyError, JSONConfigurationError) as e:
-            raise JSONConfigurationError(f"Missing required config key: {str(e)}")
+            raise JSONConfigurationError(f"Missing required video_config key: {str(e)}")
 
     async def process_audio(self):
 
@@ -68,7 +68,7 @@ class Audio:
         return await self.text_to_speech.tts_to_memory(text, language_code)
 
     def _map_audio_segments(self, audio_segments):
-        """Map the audio segments to intro, content, and outro based on config."""
+        """Map the audio segments to intro, content, and outro based on video_config."""
         audio_segments_map = {}
 
         # Mapping the segments to appropriate sections

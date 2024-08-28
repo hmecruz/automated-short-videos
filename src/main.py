@@ -35,22 +35,22 @@ async def main():
 
         video_format = video_format_instances[video_format_name] 
         format_config = video_format.get_config()
+
+        #try:
+        # Process audio for each language in content
+        for language_code, language_content in content.items():
+            audio_name = f"{video_name}_{language_code}"
+            audio_data = {
+                "intro": language_content.get("intro", ""),
+                "content": language_content.get("content", []),
+                "outro": language_content.get("outro", "")
+            }
             
-        try:
-            # Process audio for each language in content
-            for language_code, language_content in content.items():
-                audio_name = f"{video_name}_{language_code}"
-                audio_data = {
-                    "intro": language_content.get("intro", ""),
-                    "content": language_content.get("content", []),
-                    "outro": language_content.get("outro", "")
-                }
+            audio_processor = Audio(audio_name, audio_data, language_code, format_config, export_dirs)
+            tasks.append(asyncio.create_task(audio_processor.process_audio()))
                 
-                audio_processor = Audio(audio_name, audio_data, language_code, format_config, export_dirs)
-                tasks.append(asyncio.create_task(audio_processor.process_audio()))
-                
-        except (AudioProcessingError, DurationExceededError, JSONConfigurationError, TypeError, Exception) as e:
-            print(f"Skipping audio processing for {audio_name} due to an error: {str(e)}")
+        #except (AudioProcessingError, DurationExceededError, JSONConfigurationError, TypeError, Exception) as e:
+        #    print(f"Skipping audio processing for {audio_name} due to an error: {str(e)}")
 
     
     await asyncio.gather(*tasks)

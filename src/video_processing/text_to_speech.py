@@ -9,7 +9,7 @@ from utils.json_exceptions import JSONConfigurationError, JSONWarning
 
 class TextToSpeech:
 
-    def __init__(self, config_path="../../config/config.json"):
+    def __init__(self, config_path="../config/config.json"):
         self.config_path = config_path
         self.load_config()
 

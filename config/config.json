@@ -5,13 +5,13 @@
     },
     "data_file_paths": "../data/quiz/quiz_1_20.json",
     "export_dirs" : {
-        "video": ["output/videos"],
-        "image": ["output/images"],
-        "audio": ["output/audio"]
+        "video": ["../output/videos"],
+        "image": ["../output/images"],
+        "audio": ["../output/audio"]
     },
     "default_export_dirs" : {
-        "video": "output/videos",
-        "image": "output/images",
-        "audio": "output/audio"
+        "video": "../output/videos",
+        "image": "../output/images",
+        "audio": "../output/audio"
     }
 }

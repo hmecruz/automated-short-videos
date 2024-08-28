@@ -8,7 +8,7 @@ format_classes = {
     # Add other formats here as they are implemented
 }
 
-def create_video_format_instance(format_name, config_path=None):
+def create_video_format_instance(format_name):
     """
     Create an instance of the specified video format class.
     
@@ -21,4 +21,5 @@ def create_video_format_instance(format_name, config_path=None):
         raise ValueError(f"Unsupported video format: {format_name}")
     
     # Instantiate the class, optionally passing the config path if needed
-    return format_classes[format_name](config_path)
+    
+    return format_classes[format_name]()
