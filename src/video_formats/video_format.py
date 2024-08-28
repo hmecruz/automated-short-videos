@@ -1,7 +1,7 @@
 import json
 import os
 
-from ..utils.json_exceptions import JSONConfigurationError, JSONWarning
+from utils.json_exceptions import JSONConfigurationError
 
 
 class VideoFormat:

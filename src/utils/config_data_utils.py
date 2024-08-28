@@ -23,12 +23,6 @@ def get_export_dirs(config):
     if missing_keys:
         raise JSONConfigurationError(f"Missing required keys in 'export_dirs': {', '.join(missing_keys)}")
 
-    for key in export_dirs:
-        if isinstance(export_dirs[key], str):
-            export_dirs[key] = [export_dirs[key]]
-        elif not isinstance(export_dirs, list):
-            raise JSONConfigurationError(f"Unexpected value") # Create a better error message indicating the value of the key must be a path or a list of paths
-    
     # Validate and normalize paths
     for key, value in export_dirs.items():
         if isinstance(value, str):
@@ -44,19 +38,16 @@ def get_export_dirs(config):
     return export_dirs
 
 
-def load_data_files(data_file_paths):    
+def load_data_files(data_file_paths: list):    
     if isinstance(data_file_paths, str):
-            data_file_paths = [data_file_paths]
-    elif not isinstance(data_file_paths, list):
-        raise JSONFileError("Invalid format for 'data_file_paths'. It should be a list of paths or a single path.")
-
-    if not all(isinstance(path, str) for path in data_file_paths):
-        raise JSONFileError("All elements in 'data_file_paths' must be strings representing file paths.")
+        data_file_paths = [data_file_paths]
+    elif not isinstance(data_file_paths, list) or not all(isinstance(path, str) for path in data_file_paths):
+        raise JSONFileError(f"Invalid value for '{data_file_paths}': must be a string or a list of strings representing directory paths.")
 
     data = []
     
     for path in data_file_paths:
-        file = load_json(path)
-        data.extend(json.load(file))
+        file_data = load_json(path)
+        data.extend(file_data)
     
     return data

@@ -5,26 +5,58 @@
 │   └── video_format.json
 ├── data
 │   ├── quiz
-│   │   quiz_data.json
+│   │   ├── quiz_1_20.json
+│   │   ├── quiz_26_40.json
+│   │   └── quiz_41_50.json
 │   └── wyr
-│       
+│       ├── wyr_1_15.json
+│       ├── wyr_16_25.json
+│       ├── wyr_26_41.json
+│       └── wyr_42_50.json
+├── data_templates
+│   └── data.template.json
 ├── logs
 │   └── errors.log
 ├── organization.txt
 ├── __pycache__
+│   ├── Exceptions.cpython-311.pyc
+│   ├── Exceptions.cpython-312.pyc
+│   ├── Logger.cpython-312.pyc
+│   ├── Quiz.cpython-311.pyc
+│   ├── Quiz.cpython-312.pyc
+│   ├── TextToSpeech.cpython-311.pyc
+│   ├── TextToSpeech.cpython-312.pyc
+│   ├── WYR.cpython-311.pyc
+│   └── WYR.cpython-312.pyc
+├── README.md
 ├── requirements.txt
 ├── src
 │   ├── main.py
+│   ├── __pycache__
+│   │   └── main.cpython-312.pyc
 │   ├── utils
 │   │   ├── audio_utils.py
+│   │   ├── config_data_utils.py
 │   │   ├── exceptions.py
 │   │   ├── image_utils.py
 │   │   ├── __init__.py
 │   │   ├── json_exceptions.py
 │   │   ├── logger.py
+│   │   ├── __pycache__
+│   │   │   ├── audio_utils.cpython-312.pyc
+│   │   │   ├── config_data_utils.cpython-312.pyc
+│   │   │   ├── exceptions.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── json_exceptions.cpython-312.pyc
+│   │   │   └── utils.cpython-312.pyc
 │   │   └── utils.py
 │   ├── video_formats
 │   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── quiz_format.cpython-312.pyc
+│   │   │   ├── video_format.cpython-312.pyc
+│   │   │   └── wyr_format.cpython-312.pyc
 │   │   ├── quiz_format.py
 │   │   ├── video_format.py
 │   │   └── wyr_format.py
@@ -32,6 +64,10 @@
 │       ├── audio_processor.py
 │       ├── image_processor.py
 │       ├── __init__.py
+│       ├── __pycache__
+│       │   ├── audio_processor.cpython-312.pyc
+│       │   ├── __init__.cpython-312.pyc
+│       │   └── text_to_speech.cpython-312.pyc
 │       ├── text_to_speech.py
 │       └── video_processor.py
 └── tests

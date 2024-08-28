@@ -4,7 +4,7 @@ import os
 
 import edge_tts
 
-from ..utils.json_exceptions import JSONConfigurationError, JSONWarning
+from utils.json_exceptions import JSONConfigurationError, JSONWarning
 
 
 class TextToSpeech:
