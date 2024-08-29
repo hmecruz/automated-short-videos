@@ -1,6 +1,5 @@
 import asyncio
 from io import BytesIO
-from collections.abc import Iterable
 
 from pydub import AudioSegment
 from utils.audio_utils import *

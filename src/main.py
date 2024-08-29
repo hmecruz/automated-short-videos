@@ -10,11 +10,8 @@ from utils.config_data_utils import get_export_dirs, load_data_files
 async def main():
     
     config = load_json("../config/config.json")
-
     export_dirs = get_export_dirs(config)
-    
     data_file_paths = config.get("data_file_paths", [])
-    
     data = load_data_files(data_file_paths)
     
     video_format_instances = {}
@@ -22,14 +19,10 @@ async def main():
     
     for video in data:
         video_name = video["name"]
-        print(video_name)
         video_format_name = video["format"]
-        print(video_format_name)
         content = video["content"]
 
-        ######################## Working ########################
-
-            # Create or reuse the video format instance
+        # Create or reuse the video format instance
         if video_format_name not in video_format_instances:
             video_format_instances[video_format_name] = create_video_format_instance(video_format_name)
 
@@ -39,14 +32,14 @@ async def main():
         #try:
         # Process audio for each language in content
         for language_code, language_content in content.items():
-            audio_name = f"{video_name}_{language_code}"
+            audio_name = f"{video_name}"
             audio_data = {
                 "intro": language_content.get("intro", ""),
                 "content": language_content.get("content", []),
                 "outro": language_content.get("outro", "")
             }
             
-            audio_processor = Audio(audio_name, audio_data, language_code, format_config, export_dirs)
+            audio_processor = Audio(audio_name, audio_data, language_code, format_config, export_dirs["audio"])
             tasks.append(asyncio.create_task(audio_processor.process_audio()))
                 
         #except (AudioProcessingError, DurationExceededError, JSONConfigurationError, TypeError, Exception) as e:
