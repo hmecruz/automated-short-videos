@@ -1,4 +1,5 @@
 import asyncio
+from io import BytesIO
 from collections.abc import Iterable
 
 from pydub import AudioSegment
@@ -55,7 +56,7 @@ class Audio:
         tasks = [
             asyncio.create_task(self._generate_tts_task(line, language_code))
             for text in self.data.values()
-            for line in text
+            for line in (text if isinstance(text, list) else [text])
         ]
 
         # Run all tasks concurrently and wait for them to finish
@@ -114,13 +115,13 @@ class Audio:
 
         return processed_segments
 
-    def _process_audio_segment(self, audio_segments, segment_type, exceeds_duration=0):
+    def _process_audio_segment(self, audio_segments_map, segment_type, exceeds_duration=0):
 
-        if isinstance(audio_segments, str):
-            audio_segments = [audio_segments]
-        elif not isinstance(audio_segments, list):
+        if isinstance(audio_segments_map, BytesIO):
+            audio_segments_map = [audio_segments_map]
+        elif not isinstance(audio_segments_map, list) or not all(isinstance(audio_segment, BytesIO) for audio_segment in audio_segments_map):
             raise TypeError(
-                f"Expected audio_segments to be a list or string, but got {type(audio_segments)}"
+                f"Expected audio_segments to be a BytesIO or a list of BytesIO, but got {type(audio_segments_map)}"
             )
 
         processed_segments = []
@@ -133,7 +134,7 @@ class Audio:
             (self.video_segment_initial_silence, self.video_segment_duration),
         )
 
-        for audio_stream in audio_segments:
+        for audio_stream in audio_segments_map:
             try:
                 audio = AudioSegment.from_file(audio_stream, format="mp3")
                 audio = add_initial_silence(audio, initial_silence)
