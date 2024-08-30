@@ -3,7 +3,7 @@ import os
 from pydub import AudioSegment
 
 
-def add_initial_silence(audio: AudioSegment, silence_duration: int):
+def add_initial_silence(audio: AudioSegment, silence_duration: int) -> AudioSegment:
     """
     Add a specified duration of silence to the beginning of an audio segment.
 
@@ -59,7 +59,7 @@ def ensure_required_duration(audio: AudioSegment, required_duration: int, exceed
     return audio, exceeds_duration
 
 
-def concatenate_audio(audio_segments: list[AudioSegment]):
+def concatenate_audio(audio_segments: list[AudioSegment]) -> AudioSegment: 
     """
     Concatenate a list of audio segments into a single audio segment.
 

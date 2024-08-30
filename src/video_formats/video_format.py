@@ -22,6 +22,7 @@ class VideoFormat:
         self.config_path = "../config/video_format.json"
         self.load_config()
 
+
     def load_config(self):
         """
         Load the video format configuration from a JSON file.
