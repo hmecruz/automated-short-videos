@@ -11,7 +11,28 @@ from video_formats.video_format import VideoFormat
 
 
 class Audio:
-    def __init__(self, name: str, data, language_code: str, video_config, export_dirs: list):
+    """
+    A class for processing audio segments and exporting them according to specific video configurations.
+
+    This class handles generating audio from text, processing the audio by adding silences and ensuring 
+    required durations, concatenating segments, and exporting the final audio file.
+    """
+     
+    def __init__(self, name: str, data: dict, language_code: str, video_config, export_dirs: list):
+        """
+        Initializes the Audio class with the necessary attributes.
+
+        :param name: str
+            The base name for the final audio file.
+        :param data: dict
+            The text data to be converted into audio.
+        :param language_code: str
+            The language code for the text-to-speech conversion.
+        :param video_config: dict
+            Configuration settings for the video format, including durations and silences.
+        :param export_dirs: list[str]
+            List of directory paths where the final audio file should be exported.
+        """
         self.text_to_speech = TextToSpeech("../config/config.json")
         self.name = name
         self.data = data

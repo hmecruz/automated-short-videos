@@ -1,5 +1,5 @@
 import os
-import json
+
 from utils.utils import load_json
 from utils.json_exceptions import JSONConfigurationError, JSONFileError
 
