@@ -5,7 +5,7 @@
         "outro_duration": 3500,
         "intro_initial_silence": 200,
         "video_segment_initial_silence": 250,
-        "outro_initial_silence": 100
+        "outro_initial_silence": 150
     },
     "wyr": {
         "intro_duration": 0,

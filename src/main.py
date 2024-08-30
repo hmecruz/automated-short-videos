@@ -6,13 +6,14 @@ from utils.config_data_utils import get_export_dirs, load_data_files
 from utils.exceptions import DurationExceededError
 
 async def main():
-    
+    #TODO --> Validate fields received from data
     config = load_json("../config/config.json")
     export_dirs = get_export_dirs(config)
     data_file_paths = config.get("data_file_paths", [])
     data = load_data_files(data_file_paths)
     
     video_format_instances = {}
+    tasks = []
 
     for video in data:
         try:
@@ -27,7 +28,7 @@ async def main():
             video_format = video_format_instances[video_format_name] 
             format_config = video_format.get_config()
         except Exception as e:
-            print(f"Skipping audio processing {f"'{video_name}' " if video_name else None}for due to an error: {e}")
+            print(f"Skipping audio processing due to an error: {e}")
             continue # Skip this cycle if retrieving info goes wrong 
 
         # Process audio for each language in content
@@ -39,15 +40,21 @@ async def main():
                     "content": language_content.get("content", []),
                     "outro": language_content.get("outro", "")
                 }
+            except:
+                print(f"Skipping audio processing '{audio_name}_{language_code}' for due to an error: {e}")
+                continue
 
-                audio_processor = Audio(audio_name, audio_data, language_code, format_config, export_dirs["audio"])
-                await audio_processor.process_audio()  
-            except DurationExceededError as e:
-                print(f"Warning: {e}")
-            except Exception as e:
-                print(f"Skipping audio processing for '{audio_name} {language_code}' due to an error: {e}")
+            audio_processor = Audio(audio_name, audio_data, language_code, format_config, export_dirs["audio"])
+            tasks.append(asyncio.create_task(audio_processor.process_audio()))
+                 
+            #except DurationExceededError as e:
+            #    print(f"Warning: {e}")
+            #except Exception as e:
+            #    print(f"Skipping audio processing for '{audio_name} {language_code}' due to an error: {e}")
                 
-
+    
+    result = await asyncio.gather(*tasks, return_exceptions=True)
+    [print(exception) for exception in result if exception]
     print("Processing completed.")
     
 if __name__ == "__main__":
