@@ -27,9 +27,7 @@ def cleanup_memory_files(files: list):
         _cleanup(file)
 
     gc.collect()
-    print("Temporary files deleted")
-
-
+    
 
 def load_json(file_path: str) -> dict:
     """

@@ -1,18 +1,18 @@
 {
     "quiz": {
         "intro_duration": 3500,
-        "outro_duration": 3500,
         "video_segment_duration": 9500,
+        "outro_duration": 3500,
         "intro_initial_silence": 200,
-        "outro_initial_silence": 200,
-        "video_segment_initial_silence": 250
+        "video_segment_initial_silence": 250,
+        "outro_initial_silence": 100
     },
     "wyr": {
         "intro_duration": 0,
-        "outro_duration": 0,
         "video_segment_duration": 9500,
+        "outro_duration": 0,
         "intro_initial_silence": 0,
-        "outro_initial_silence": 0,
-        "video_segment_initial_silence": 250
+        "video_segment_initial_silence": 250,
+        "outro_initial_silence": 0
     }
 }

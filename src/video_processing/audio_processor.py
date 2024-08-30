@@ -3,8 +3,7 @@ from io import BytesIO
 
 from pydub import AudioSegment
 from utils.audio_utils import *
-from utils.exceptions import AudioProcessingError, DurationExceededError
-from utils.json_exceptions import JSONConfigurationError
+from utils.exceptions import DurationExceededError
 from utils.utils import cleanup_memory_files
 from video_processing.text_to_speech import TextToSpeech
 from video_formats.video_format import VideoFormat
@@ -263,10 +262,10 @@ class Audio:
         if final_audio_duration > expected_duration:
             exceptions.append(
                 DurationExceededError(
-                    f"Final audio {self.name} with {final_audio_duration}ms exceeds the expected duration {expected_duration}ms."
+                    f"Final audio '{self.name} {self.language_code}' with {final_audio_duration}ms exceeds the expected duration {expected_duration}ms."
                 )
             )
-        else: print(f"Final audio {self.name} has a duration of: {final_audio_duration} ms.")
+        else: print(f"Final audio '{self.name} {self.language_code}' has a duration of: {final_audio_duration}ms.")
 
         segment_durations = {
             "intro": self.intro_duration,
@@ -284,8 +283,8 @@ class Audio:
             if len(segment) > expected_duration:
                 exceptions.append(
                     DurationExceededError(
-                        f"Final audio {self.name} contain segments with exceeded durations.\n"
-                        f"Details:\nSegment durations:  {[len(s) for s in processed_segments]}\nExpected durations: {expected_segment_durations}"
+                        f"Final audio '{self.name} {self.language_code}' contain segments with exceeded durations.\n"
+                        f"Segment durations:  {[len(s) for s in processed_segments]}\nExpected durations: {expected_segment_durations}"
                     )
                 )
                 break
