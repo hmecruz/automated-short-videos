@@ -262,10 +262,10 @@ class Audio:
         if final_audio_duration > expected_duration:
             exceptions.append(
                 DurationExceededError(
-                    f"Final audio '{self.name}_{self.language_code}' with {final_audio_duration}ms exceeds the expected duration {expected_duration}ms."
+                    f"Final audio '{self.name}_{self.language_code}' duration: {final_audio_duration}ms. Expected duration: {expected_duration}ms."
                 )
             )
-        else: print(f"Final audio '{self.name}_{self.language_code}' has a duration of: {final_audio_duration}ms.")
+        else: print(f"Final audio '{self.name}_{self.language_code}' duration: {final_audio_duration}ms.")
 
         segment_durations = {
             "intro": self.intro_duration,
@@ -283,7 +283,7 @@ class Audio:
             if len(segment) > expected_duration:
                 exceptions.append(
                     DurationExceededError(
-                        f"Final audio '{self.name}_{self.language_code}' contain segments with exceeded durations.\n"
+                        f"Final audio '{self.name}_{self.language_code}' segments exceed expected durations.\n"
                         f"Segment durations:  {[len(s) for s in processed_segments]}\nExpected durations: {expected_segment_durations}"
                     )
                 )

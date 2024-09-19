@@ -41,18 +41,12 @@ async def main():
                     "outro": language_content.get("outro", "")
                 }
             except:
-                print(f"Skipping audio processing '{audio_name}_{language_code}' for due to an error: {e}")
+                print(f"Skipping audio processing '{audio_name}_{language_code}'. Error: {e}")
                 continue
 
             audio_processor = Audio(audio_name, audio_data, language_code, format_config, export_dirs["audio"])
             tasks.append(asyncio.create_task(audio_processor.process_audio()))
-                 
-            #except DurationExceededError as e:
-            #    print(f"Warning: {e}")
-            #except Exception as e:
-            #    print(f"Skipping audio processing for '{audio_name} {language_code}' due to an error: {e}")
-                
-    
+                    
     result = await asyncio.gather(*tasks, return_exceptions=True)
     [print(exception) for exception in result if exception]
     print("Processing completed.")
